@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: vote-api-dev
+  name: vote-api-test
 spec:
   destination:
-    namespace: {{ .Values.spec.destination.dev.namespace }}
-    server: {{ .Values.spec.destination.dev.cluster }}
+    namespace: vote-test
+    server: https://kubernetes.default.svc
   project: vote
   source:
-    path: {{ .Values.spec.source.dev.path }}
+    path: k8s/openshift/base
     repoURL: 'https://github.com/jwennerberg/vote-api.git'
     targetRevision: HEAD
   ignoreDifferences:
