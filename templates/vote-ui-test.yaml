@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vote-ui-test
+spec:
+  destination:
+    namespace: {{ .Values.spec.destination.test.namespace }}
+    server: {{ .Values.spec.destination.test.cluster }}
+  project: vote
+  source:
+    path: {{ .Values.spec.source.test.path }}
+    repoURL: 'https://github.com/jwennerberg/vote-ui.git'
+    targetRevision: HEAD
+  ignoreDifferences:
+  - group: apps.openshift.io
+    kind: DeploymentConfig
+    jsonPointers:
+    - /spec/template/spec/containers/0/image
+  - group: build.openshift.io
+    kind: BuildConfig
+    jsonPointers:
+    - /spec/triggers/0/imageChange
+

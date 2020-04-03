@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vote-api-dev
+spec:
+  destination:
+    namespace: {{ .Values.spec.destination.dev.namespace }}
+    server: {{ .Values.spec.destination.dev.cluster }}
+  project: vote
+  source:
+    path: {{ .Values.spec.source.dev.path }}
+    repoURL: 'https://github.com/jwennerberg/vote-api.git'
+    targetRevision: HEAD
+  ignoreDifferences:
+  - group: apps.openshift.io
+    kind: DeploymentConfig
+    jsonPointers:
+    - /spec/template/spec/containers/0/image
