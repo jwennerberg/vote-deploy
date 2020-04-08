@@ -6,7 +6,7 @@ spec:
   destination:
     namespace: vote-dev
     server: https://kubernetes.default.svc
-  project: vote
+  project: xfteam1
   source:
     path: k8s/openshift/dev
     repoURL: 'https://github.com/jwennerberg/vote-ui.git'
